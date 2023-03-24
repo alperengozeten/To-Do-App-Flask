@@ -37,3 +37,6 @@ VALUES ('Health'),
        ('Lifestyle'),
        ('Family'),
        ('Hobbies');
+INSERT INTO Task(title, description, status, deadline, creation_time, done_time, user_id, task_type)
+VALUES ('Go for a walk', 'Walk for at least 30 mins', 'Done', '2023-03-20 17:00:00', '2023-03-15 10:00:00', '2023-03-20 10:00:00', 1, 'Health'),
+       ('Clean the house', 'Clean the whole house', 'Done', '2023-03-18 12:00:00', '2023-03-14 09:00:00', '2023-03-18 17:00:00', 1, 'Lifestyle');
