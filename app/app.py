@@ -71,7 +71,7 @@ def tasks():
 
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():
-    return "Analysis page"
+    return render_template('analysis.html')
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
