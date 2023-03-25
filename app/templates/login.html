@@ -1,4 +1,8 @@
-<html style="background-color: #12343b" >
+<html>
+<head>
+	<link rel="stylesheet" href="static/styles/register.css">
+</head>
+<body>
 	<h1 style="text-align:center; font-family: Helvetica; font-weight: bold; color: aliceblue;">Welcome to Todo-List Application!</h1>
 	<form style="text-align:center; color: aliceblue;" action="{{ url_for('login') }}" method="post">
 		{% if message is defined and message %}
@@ -12,11 +16,12 @@
 			<label for="password">Password:</label>
 			<input style="font-family: Helvetica;" type="password" class="form-control" id="password" name="password" placeholder="Enter password">
 		</div>    
-		<button style="text-align:center; margin-top: 1em; font-weight: bold;" type="submit" class="btn btn-primary">Login</button>
+		<button style="text-align:center; margin-top: 1em; font-weight: bold;border-radius: 4px;" type="submit" class="btn btn-primary">Login</button>
 	</form>
 
 	<form style="text-align:center" action="{{ url_for('register') }}" method="get">
-	<button style="font-weight: bold;" class="btn btn-primary">Register</button>
+	<button style="font-weight: bold;border-radius: 4px;" class="btn btn-primary">Register</button>
 	</form>
+</body>
 </html>
 
