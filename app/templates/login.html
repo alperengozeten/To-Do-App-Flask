@@ -3,7 +3,11 @@
 	<link rel="stylesheet" href="static/styles/register.css">
 </head>
 <body>
-	<h1 style="text-align:center; font-family: Helvetica; font-weight: bold; color: aliceblue;">Welcome to Todo-List Application!</h1>
+	<div style="text-align: center;">
+		<h1 style="font-family: Helvetica; font-weight: bold; color: aliceblue; display: inline-block; vertical-align: middle;">Welcome to Todo-List Application!</h1>
+		<img style="width:50px;height:50px; vertical-align: middle;" src="static/to-do-list.png"/>
+		<h2 style="text-align:center; font-family: Helvetica; font-weight: bold; color: aliceblue;">Please enter your credentials</h2>
+	</div>
 	<form style="text-align:center; color: aliceblue;" action="{{ url_for('login') }}" method="post">
 		{% if message is defined and message %}
 			<div class="alert alert-warning">{{ message }}</div>
