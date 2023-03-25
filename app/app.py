@@ -67,7 +67,7 @@ def register():
 
 @app.route('/tasks', methods =['GET', 'POST'])
 def tasks():
-    return "Tasks page"
+    return render_template('tasks.html')
 
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():

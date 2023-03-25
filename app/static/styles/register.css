@@ -23,3 +23,10 @@ body {
   border: 2px solid #2A7889;
   border-radius: 4px;
 }
+
+.table-striped>tbody>tr:nth-child(odd)>td {
+  background-color: #369AB0;
+}
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color:#369AB0; 
+ }
