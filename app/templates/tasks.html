@@ -20,8 +20,7 @@
           $(function () {
               $(".modal-delete-btn").click(function () {
                   var my_row_value = $(this).attr('data-task-id');
-                  $("#task_id").val($('#exampleModalCenter').attr('data-id')); 
-                  alert($('#exampleModalCenter').attr('data-task-id'));
+                  $("#task_id").val($('#exampleModalCenter').attr('data-task-id')); 
               })
           });
       </script>
@@ -149,9 +148,9 @@
               Are you sure you want to delete this task?
             </div>
             <div class="modal-footer">
-              <form action="{{ url_for('tasks') }}" method="delete">
+              <form action="{{ url_for('tasks') }}" method="post">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> No</button>
-                <button type="button" class="btn btn-primary modal-delete-btn" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Yes</button>
+                <button class="btn btn-primary modal-delete-btn" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Yes</button>
                 <input type="hidden" class="form-control" id="task_id" name="task_id" value="">
               </form>
             </div>

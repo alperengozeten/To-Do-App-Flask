@@ -65,17 +65,22 @@ def register():
         message = 'Please fill all the fields!'
     return render_template('register.html', message = message)
 
-@app.route('/tasks', methods =['GET', 'POST', 'DELETE'])
+@app.route('/tasks', methods =['GET', 'POST'])
 def tasks():
     if not session['loggedin']:
         return redirect(url_for('login'))
     result = None
-    if request.method == 'GET':
-        userid = session['userid']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
-        result = cursor.fetchall()
-        print(result)
+    userid = session['userid']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    print("here")
+    if request.method == 'POST' and 'task_id' in request.form:
+        taskid = int(request.form['task_id'])
+        cursor.execute('DELETE FROM Task WHERE id = % s', (taskid, ))
+        print("here")
+    
+    cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
+    result = cursor.fetchall()
 
     return render_template('tasks.html', table=result)
 
