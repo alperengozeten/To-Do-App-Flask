@@ -73,11 +73,10 @@ def tasks():
     userid = session['userid']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     
-    print("here")
     if request.method == 'POST' and 'task_id' in request.form:
         taskid = int(request.form['task_id'])
         cursor.execute('DELETE FROM Task WHERE id = % s', (taskid, ))
-        print("here")
+        mysql.connection.commit()
     
     cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
     result = cursor.fetchall()
