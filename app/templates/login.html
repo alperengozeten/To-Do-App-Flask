@@ -9,20 +9,22 @@
 		<img style="width:50px;height:50px; vertical-align: middle;" src="static/to-do-list.png"/>
 		<h2 style="text-align:center; font-family: Helvetica; font-weight: bold; color: aliceblue;">Please enter your credentials</h2>
 	</div>
-	<form style="text-align:center; color: aliceblue;" action="{{ url_for('login') }}" method="post">
-		{% if message is defined and message %}
-			<div class="alert alert-warning">{{ message }}</div>
-		{% endif %}
-		<div style="text-align:center; margin-top: 1em; font-family: Helvetica;" class="form-group">
-			<label for="username">Username:</label>
-			<input style="font-family: Helvetica;" type="username" class="form-control" id="username" name="username" placeholder="Enter username">
-		</div>
-		<div style="text-align:center; margin-top: 1em; font-family: Helvetica;" class="form-group">
-			<label for="password">Password:</label>
-			<input style="font-family: Helvetica;" type="password" class="form-control" id="password" name="password" placeholder="Enter password">
-		</div>    
-		<button style="text-align:center; margin-top: 1em; font-weight: bold;border-radius: 4px;" type="submit" class="btn btn-primary">Login</button>
-	</form>
+	<div style="display: flex; justify-content: center;">
+		<form style="text-align:center; color: aliceblue;" action="{{ url_for('login') }}" method="post">
+			{% if message is defined and message %}
+				<div class="alert alert-warning">{{ message }}</div>
+			{% endif %}
+			<div style="text-align:center; margin-top: 1em; font-family: Helvetica;" class="form-group form-inline">
+				<label for="username">Username:</label>
+				<input style="font-family: Helvetica; margin-left: 0.5em;" type="username" class="form-control" id="username" name="username" placeholder="Enter username">
+			</div>
+			<div style="text-align:center; margin-top: 1em; font-family: Helvetica;" class="form-group form-inline">
+				<label for="password">Password:</label>
+				<input style="font-family: Helvetica; margin-left: 0.5em;" type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+			</div>    
+			<button style="text-align:center; margin-top: 0.5em; font-weight: bold;border-radius: 4px;" type="submit" class="btn btn-primary">Login</button>
+		</form>
+	</div>
 
 	<form style="text-align:center" action="{{ url_for('register') }}" method="get">
 	<button style="font-weight: bold;border-radius: 4px;" class="btn btn-primary">Register</button>
