@@ -67,7 +67,15 @@ def register():
 
 @app.route('/tasks', methods =['GET', 'POST'])
 def tasks():
-    return render_template('tasks.html')
+    result = None
+    if request.method == 'GET':
+        userid = session['userid']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
+        result = cursor.fetchall()
+        print(result)
+
+    return render_template('tasks.html', table=result)
 
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():
