@@ -89,7 +89,11 @@
                 {% endif %}
                 <td>{{ row.task_type }}</td>
                 <td><button class="btn btn-primary" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i> Edit</button>
-                <td><button class="btn btn-primary" data-toggle="modal" data-target="#modalMarkFinished"><i class="fa fa-check"></i> Finish</button>
+                {% if row.done_time is none %}
+                  <td><button class="btn btn-primary" data-toggle="modal" data-target="#modalMarkFinished"><i class="fa fa-check"></i> Finish</button>
+                {% else %}
+                  <td><button class="btn btn-primary" data-toggle="modal" data-target="#modalMarkFinished" disabled><i class="fa fa-check"></i> Done</button>  
+                {% endif %}
                 <td><button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-trash"></i> Delete</button>
               </tr>
             {% endfor %}
