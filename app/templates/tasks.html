@@ -44,7 +44,19 @@
           <i class="fa fa-arrow-circle-right"></i> Logout
         </a>
       </nav>
-      <h2 style="margin-top: 0.5em; margin-bottom: 0.5em; text-align: center; color: aliceblue;">Your Tasks</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            1 of 3
+          </div>
+          <div style="text-align: center;" class="col-6">
+            <h2 style="margin-top: 0.5em; margin-bottom: 0.5em; color: aliceblue; display: inline-block;">Your Tasks</h2>
+          </div>
+          <div style="text-align: center;" class="col">
+            <button style="margin-top: 0.5em; margin-bottom: 0.5em;" type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create A New Task</button>
+          </div>
+        </div>
+      </div>
       <div class="table-responsive">
         <table class="table table-dark table-hover table-striped">
           <thead>
@@ -92,8 +104,6 @@
           </tbody>
         </table>
       </div>  
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create A New Task</button>
-
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
