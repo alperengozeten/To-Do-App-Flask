@@ -67,6 +67,8 @@ def register():
 
 @app.route('/tasks', methods =['GET', 'POST', 'DELETE'])
 def tasks():
+    if not session['loggedin']:
+        return redirect(url_for('login'))
     result = None
     if request.method == 'GET':
         userid = session['userid']
@@ -79,6 +81,8 @@ def tasks():
 
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():
+    if not session['loggedin']:
+        return redirect(url_for('login'))
     return render_template('analysis.html')
 
 @app.route("/logout")
