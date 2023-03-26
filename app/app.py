@@ -65,7 +65,7 @@ def register():
         message = 'Please fill all the fields!'
     return render_template('register.html', message = message)
 
-@app.route('/tasks', methods =['GET', 'POST'])
+@app.route('/tasks', methods =['GET', 'POST', 'DELETE'])
 def tasks():
     result = None
     if request.method == 'GET':
