@@ -82,7 +82,11 @@
                 <td>{{ row.status }}</td>
                 <td>{{ row.deadline}}</td>
                 <td>{{ row.creation_time }}</td>
-                <td>{{ row.done_time }}</td>
+                {% if row.done_time is not none %}
+                  <td>{{ row.done_time }}</td>
+                {% else %}
+                  <td>Not Completed</td>
+                {% endif %}
                 <td>{{ row.task_type }}</td>
                 <td><button class="btn btn-primary" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i> Edit</button>
                 <td><button class="btn btn-primary" data-toggle="modal" data-target="#modalMarkFinished"><i class="fa fa-check"></i> Finish</button>
