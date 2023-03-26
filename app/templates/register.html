@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="static/styles/register.css">
 	</head>
 	<body>
@@ -7,25 +8,27 @@
 			<h2 style="text-align:center; font-family: Helvetica; font-weight: bold; color: aliceblue; display: inline-block; vertical-align: middle;">Register as a new user</h2>
 			<img class="img-fluid" style="width:40px;height:40px; vertical-align: middle; margin-left: 0.25em;" src="static/register.png"/>
 		</div>
-	<form style="text-align:center; color: aliceblue;" action="{{ url_for('register') }}" method="post">
-		{% if message is defined and message %}
-			<div class="alert alert-warning">{{ message }}</div>
-		{% endif %}
-		<div style="margin-top: 1em;font-family: Helvetica;" class="form-group">
-			<label for="username">Username:</label>
-			<input type="text" class="form-control" id="username" name="username" placeholder="Enter name">
+		<div style="display: flex; justify-content: center;">
+			<form style="text-align:center; color: aliceblue;" action="{{ url_for('register') }}" method="post">
+				{% if message is defined and message %}
+					<div class="alert alert-warning">{{ message }}</div>
+				{% endif %}
+				<div style="margin-top: 1em;font-family: Helvetica;" class="form-group form-inline">
+					<label for="username">Username:</label>
+					<input style="margin-left: 0.5em;" type="text" class="form-control" id="username" name="username" placeholder="Enter name">
+				</div>
+				<div style="margin-left: 2em; margin-top: 1em;font-family: Helvetica;" class="form-group form-inline">
+					<label for="email">Email:</label>
+					<input style="margin-left: 0.5em;" type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+				</div>
+				<div style="margin-top: 1em;font-family: Helvetica;" class="form-group form-inline">
+					<label for="pwd">Password:</label>
+					<input style="margin-left: 0.5em;" type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+				</div>  
+			
+				<button style="margin-top: 1em; font-family: Helvetica; font-weight: bold;" type="submit" class="btn btn-primary">Register</button>		
+			</form>
 		</div>
-		<div style="margin-top: 1em;font-family: Helvetica;" class="form-group">
-			<label for="email">Email:</label>
-			<input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-		</div>
-		<div style="margin-top: 1em;font-family: Helvetica;" class="form-group">
-			<label for="pwd">Password:</label>
-			<input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
-		</div>  
-	
-		<button style="margin-top: 1em; font-family: Helvetica; font-weight: bold;" type="submit" class="btn btn-primary">Register</button>		
-	</form>
 	
 	<form style="text-align: center;" action="{{ url_for('login') }}" method="get">
 	<button class="btn btn-primary form-submit-button">Login</button>
