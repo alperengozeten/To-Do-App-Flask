@@ -52,7 +52,6 @@
             $(".dropdown-menu").on('click', 'a', function(){
               $("#dropdownMenuButton").text($(this).text());
               $("#dropdownMenuButton").val($(this).text());
-              alert("here")
             });
           });
       </script>
@@ -155,6 +154,10 @@
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">Description:</label>
                   <textarea class="form-control" id="message-text"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="party">Enter a date and time for the deadline of the task:</label>
+                  <input id="party" type="datetime-local" name="partydate" value="2017-06-01T08:30" />
                 </div>
               </form>
               <div class="dropdown" style="text-align: center;">

@@ -11,3 +11,8 @@
 .dropdown-menu {
     width:100%; /* Make drop down 100% width OPTIONAL */
 }
+
+input[type="datetime-local"] {
+    width: 465px;
+    /* More styles here */
+}
