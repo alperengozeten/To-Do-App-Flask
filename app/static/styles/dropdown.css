@@ -1,6 +1,7 @@
 .dropdown-toggle {
     border:none; /* Remove border bottom */
     width:100%;
+    background-color: #369AB0
 }
 
 .dropdown, .dropup {
