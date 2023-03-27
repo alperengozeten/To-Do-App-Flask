@@ -47,6 +47,14 @@
                   $("#edit-task-description").val(my_task_description); 
               })
           });
+
+          $(function(){
+            $(".dropdown-menu").on('click', 'a', function(){
+              $("#dropdownMenuButton").text($(this).text());
+              $("#dropdownMenuButton").val($(this).text());
+              alert("here")
+            });
+          });
       </script>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="tasks">To-Do App</a>
@@ -155,7 +163,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for task in task_types %}
-                  <a class="dropdown-item" href="#">{{task.type}}</a>
+                  <a class="dropdown-item edit-task-type" href="#">{{task.type}}</a>
                   {% endfor %}
                 </div>
               </div>
