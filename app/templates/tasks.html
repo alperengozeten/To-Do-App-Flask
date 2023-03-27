@@ -43,8 +43,11 @@
               $(".edit-btn").click(function () {
                   var my_task_title = $(this).attr('data-task-title');
                   var my_task_description = $(this).attr('data-task-description');
+                  var my_task_type = $(this).attr('data-task-type');
                   $("#edit-task-title").val(my_task_title); 
                   $("#edit-task-description").val(my_task_description); 
+                  $("#editDropdownMenuButton").text(my_task_type);
+                  $("#editDropdownMenuButton").val(my_task_type);
               })
           });
 
@@ -131,7 +134,7 @@
                   <td>Not Completed</td>
                 {% endif %}
                 <td>{{ row.task_type }}</td>
-                <td><button class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal" data-task-title="{{row.title}}" data-task-description="{{row.description}}"><i class="fa fa-pencil"></i> Edit</button>
+                <td><button class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal" data-task-title="{{row.title}}" data-task-description="{{row.description}}" data-task-type="{{row.task_type}}"><i class="fa fa-pencil"></i> Edit</button>
                 {% if row.done_time is none %}
                   <td><button class="btn btn-primary finish-btn" data-toggle="modal" data-target="#modalMarkFinished" data-task-id="{{row.id}}"><i class="fa fa-check"></i> Finish</button>
                 {% else %}
