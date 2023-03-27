@@ -1,0 +1,12 @@
+.dropdown-toggle {
+    border:none; /* Remove border bottom */
+    width:100%;
+}
+
+.dropdown, .dropup {
+    border-bottom: 1px solid #696969; /* Add bottom border to drop down instead */
+}
+
+.dropdown-menu {
+    width:100%; /* Make drop down 100% width OPTIONAL */
+}

@@ -73,6 +73,9 @@ def tasks():
     result = None
     userid = session['userid']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute('SELECT * FROM TaskType')
+    task_types = cursor.fetchall()
     
     if request.method == 'POST' and 'task_id' in request.form:
         taskid = int(request.form['task_id'])
@@ -87,7 +90,7 @@ def tasks():
     cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
     result = cursor.fetchall()
 
-    return render_template('tasks.html', table=result)
+    return render_template('tasks.html', table=result, task_types=task_types)
 
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():
