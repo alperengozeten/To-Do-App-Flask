@@ -44,10 +44,12 @@
                   var my_task_title = $(this).attr('data-task-title');
                   var my_task_description = $(this).attr('data-task-description');
                   var my_task_type = $(this).attr('data-task-type');
+                  var my_task_deadline = $(this).attr('data-task-deadline');
                   $("#edit-task-title").val(my_task_title); 
                   $("#edit-task-description").val(my_task_description); 
                   $("#editDropdownMenuButton").text(my_task_type);
                   $("#editDropdownMenuButton").val(my_task_type);
+                  $("#edit-date").val(my_task_deadline);
               })
           });
 
@@ -134,7 +136,7 @@
                   <td>Not Completed</td>
                 {% endif %}
                 <td>{{ row.task_type }}</td>
-                <td><button class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal" data-task-title="{{row.title}}" data-task-description="{{row.description}}" data-task-type="{{row.task_type}}"><i class="fa fa-pencil"></i> Edit</button>
+                <td><button class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal" data-task-title="{{row.title}}" data-task-description="{{row.description}}" data-task-type="{{row.task_type}}" data-task-deadline="{{row.deadline}}"><i class="fa fa-pencil"></i> Edit</button>
                 {% if row.done_time is none %}
                   <td><button class="btn btn-primary finish-btn" data-toggle="modal" data-target="#modalMarkFinished" data-task-id="{{row.id}}"><i class="fa fa-check"></i> Finish</button>
                 {% else %}
@@ -166,8 +168,8 @@
                   <textarea class="form-control" id="message-text"></textarea>
                 </div>
                 <div class="form-group">
-                  <label for="party">Enter a date and time for the deadline of the task:</label>
-                  <input id="party" type="datetime-local" name="partydate" value="2017-06-01T08:30" />
+                  <label for="create-date">Enter a date and time for the deadline of the task:</label>
+                  <input id="create-date" type="datetime-local" name="partydate" value="" />
                 </div>
               </form>
               <div class="dropdown" style="text-align: center;">
@@ -257,8 +259,8 @@
                   <textarea class="form-control" id="edit-task-description"></textarea>
                 </div>
                 <div class="form-group">
-                  <label for="party">Edit the date and time for the deadline of the task:</label>
-                  <input id="party" type="datetime-local" name="partydate" value="2017-06-01T08:30" />
+                  <label for="edit-date">Edit the date and time for the deadline of the task:</label>
+                  <input id="edit-date" type="datetime-local" name="partydate" value="2017-06-01T08:30" />
                 </div>
                 <div class="dropdown" style="text-align: center;">
                   <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="editDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
