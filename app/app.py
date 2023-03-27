@@ -4,6 +4,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
+from datetime import datetime
 
 app = Flask(__name__) 
 
@@ -80,8 +81,7 @@ def tasks():
     
     if request.method == 'POST' and 'finish_task_id' in request.form:
         taskid = int(request.form['finish_task_id'])
-        print("here")
-        cursor.execute('DELETE FROM Task WHERE id = % s', (taskid, ))
+        cursor.execute('UPDATE Task SET status = \'Done\', done_time = % s WHERE id = % s', (datetime.now(), taskid,  ))
         mysql.connection.commit()
     
     cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
