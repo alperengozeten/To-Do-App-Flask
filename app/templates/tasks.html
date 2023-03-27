@@ -49,9 +49,16 @@
           });
 
           $(function(){
-            $(".dropdown-menu").on('click', 'a', function(){
+            $(".create-dropdown-menu").on('click', 'a', function(){
               $("#dropdownMenuButton").text($(this).text());
               $("#dropdownMenuButton").val($(this).text());
+            });
+          });
+
+          $(function(){
+            $(".edit-dropdown-menu").on('click', 'a', function(){
+              $("#editDropdownMenuButton").text($(this).text());
+              $("#editDropdownMenuButton").val($(this).text());
             });
           });
       </script>
@@ -164,7 +171,7 @@
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Pick A Task Type
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu create-dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for task in task_types %}
                   <a class="dropdown-item edit-task-type" href="#">{{task.type}}</a>
                   {% endfor %}
@@ -245,6 +252,20 @@
                 <div class="form-group">
                   <label for="edit-task-description" class="col-form-label">Description:</label>
                   <textarea class="form-control" id="edit-task-description"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="party">Edit the date and time for the deadline of the task:</label>
+                  <input id="party" type="datetime-local" name="partydate" value="2017-06-01T08:30" />
+                </div>
+                <div class="dropdown" style="text-align: center;">
+                  <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="editDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Pick A Task Type
+                  </button>
+                  <div class="dropdown-menu edit-dropdown-menu" aria-labelledby="editDropdownMenuButton">
+                    {% for task in task_types %}
+                    <a class="dropdown-item edit-task-type" href="#">{{task.type}}</a>
+                    {% endfor %}
+                  </div>
                 </div>
               </form>
             </div>
