@@ -86,6 +86,14 @@ def tasks():
         taskid = int(request.form['finish_task_id'])
         cursor.execute('UPDATE Task SET status = \'Done\', done_time = % s WHERE id = % s', (datetime.now(), taskid,  ))
         mysql.connection.commit()
+
+    if request.method == 'POST' and 'create_task_title' in request.form:
+        title = request.form['create_task_title']
+        description = request.form['create_task_description']
+        type = request.form['task_type_input']
+        deadline = request.form['create_deadline_date']
+        cursor.execute('INSERT INTO Task(title, description, status, deadline, creation_time, done_time, user_id, task_type) VALUES (% s, % s, \'Todo\', % s, % s, NULL, % s, % s)', (title, description, deadline, datetime.now(), userid, type, ))
+        mysql.connection.commit()
     
     cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
     result = cursor.fetchall()

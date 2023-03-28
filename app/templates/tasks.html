@@ -57,6 +57,7 @@
             $(".create-dropdown-menu").on('click', 'a', function(){
               $("#dropdownMenuButton").text($(this).text());
               $("#dropdownMenuButton").val($(this).text());
+              $("#task_type_input").val($(this).text())
             });
           });
 
@@ -160,16 +161,16 @@
               <form action="{{ url_for('tasks') }}" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Title:</label>
-                      <input type="text" class="form-control" id="create-task-title">
+                      <label for="create_task_title" class="col-form-label">Title:</label>
+                      <input type="text" class="form-control" id="create_task_title" name="create_task_title" value="">
                     </div>
                     <div class="form-group">
-                      <label for="message-text" class="col-form-label">Description:</label>
-                      <textarea class="form-control" id="create-task-description"></textarea>
+                      <label for="create_task_description" class="col-form-label">Description:</label>
+                      <textarea class="form-control" id="create_task_description" name="create_task_description"></textarea>
                     </div>
                     <div class="form-group">
-                      <label for="create-date">Enter a date and time for the deadline of the task:</label>
-                      <input id="create-date" type="datetime-local" name="partydate" value="" />
+                      <label for="create_deadline_date">Enter a date and time for the deadline of the task:</label>
+                      <input id="create_deadline_date" type="datetime-local" name="create_deadline_date" value="" />
                     </div>
                     <div class="dropdown" style="text-align: center;">
                       <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -186,6 +187,7 @@
                   <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
                   <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Create</button>
                 </div>
+                <input type="hidden" class="form-control" id="task_type_input" name="task_type_input" value="">
             </form>
           </div>
         </div>
