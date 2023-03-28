@@ -105,8 +105,11 @@ def tasks():
         description = request.form['edit_task_description']
         type = request.form['edit_type_input']
         deadline = request.form['edit_deadline_date']
-        cursor.execute('UPDATE Task SET title = % s, description = % s, deadline = % s, task_type = % s WHERE id = % s', (title, description, deadline, type, taskid, ))
-        mysql.connection.commit()
+        if not title or not description or not type or not deadline:
+            message = 'Please fill in all the required details!'
+        else:
+            cursor.execute('UPDATE Task SET title = % s, description = % s, deadline = % s, task_type = % s WHERE id = % s', (title, description, deadline, type, taskid, ))
+            mysql.connection.commit()
     
     cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Todo\' ORDER BY deadline', (userid, ))
     result = cursor.fetchall()
