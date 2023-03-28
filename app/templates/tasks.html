@@ -41,15 +41,18 @@
 
           $(function () {
               $(".edit-btn").click(function () {
+                  var my_task_id = $(this).attr('data-task-id');
                   var my_task_title = $(this).attr('data-task-title');
                   var my_task_description = $(this).attr('data-task-description');
                   var my_task_type = $(this).attr('data-task-type');
                   var my_task_deadline = $(this).attr('data-task-deadline');
-                  $("#edit-task-title").val(my_task_title); 
-                  $("#edit-task-description").val(my_task_description); 
+                  $("#edit_task_id").val(my_task_id); 
+                  $("#edit_task_title").val(my_task_title); 
+                  $("#edit_task_description").val(my_task_description); 
                   $("#editDropdownMenuButton").text(my_task_type);
                   $("#editDropdownMenuButton").val(my_task_type);
-                  $("#edit-date").val(my_task_deadline);
+                  $("#edit_deadline_date").val(my_task_deadline);
+                  $("#edit_type_input").val(my_task_type);
               })
           });
 
@@ -65,6 +68,7 @@
             $(".edit-dropdown-menu").on('click', 'a', function(){
               $("#editDropdownMenuButton").text($(this).text());
               $("#editDropdownMenuButton").val($(this).text());
+              $("#edit_type_input").val($(this).text())
             });
           });
       </script>
@@ -137,7 +141,7 @@
                   <td>Not Completed</td>
                 {% endif %}
                 <td>{{ row.task_type }}</td>
-                <td><button class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal" data-task-title="{{row.title}}" data-task-description="{{row.description}}" data-task-type="{{row.task_type}}" data-task-deadline="{{row.deadline}}"><i class="fa fa-pencil"></i> Edit</button>
+                <td><button class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal" data-task-id="{{row.id}}" data-task-title="{{row.title}}" data-task-description="{{row.description}}" data-task-type="{{row.task_type}}" data-task-deadline="{{row.deadline}}"><i class="fa fa-pencil"></i> Edit</button>
                 {% if row.done_time is none %}
                   <td><button class="btn btn-primary finish-btn" data-toggle="modal" data-target="#modalMarkFinished" data-task-id="{{row.id}}"><i class="fa fa-check"></i> Finish</button>
                 {% else %}
@@ -250,19 +254,19 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <form>
+            <form action="{{ url_for('tasks') }}" method="post">
+              <div class="modal-body">
                 <div class="form-group">
-                  <label for="edit-task-title" class="col-form-label">Title:</label>
-                  <input type="text" class="form-control" id="edit-task-title">
+                  <label for="edit_task_title" class="col-form-label">Title:</label>
+                  <input type="text" class="form-control" id="edit_task_title" name="edit_task_title">
                 </div>
                 <div class="form-group">
-                  <label for="edit-task-description" class="col-form-label">Description:</label>
-                  <textarea class="form-control" id="edit-task-description"></textarea>
+                  <label for="edit_task_description" class="col-form-label">Description:</label>
+                  <textarea class="form-control" id="edit_task_description" name="edit_task_description"></textarea>
                 </div>
                 <div class="form-group">
-                  <label for="edit-date">Edit the date and time for the deadline of the task:</label>
-                  <input id="edit-date" type="datetime-local" name="partydate" value="2017-06-01T08:30" />
+                  <label for="edit_deadline_date">Edit the date and time for the deadline of the task:</label>
+                  <input id="edit_deadline_date" type="datetime-local" name="edit_deadline_date" value="" />
                 </div>
                 <div class="dropdown" style="text-align: center;">
                   <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="editDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -274,12 +278,14 @@
                     {% endfor %}
                   </div>
                 </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save Changes</button>
-            </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+              <input type="hidden" class="form-control" id="edit_task_id" name="edit_task_id" value="">
+              <input type="hidden" class="form-control" id="edit_type_input" name="edit_type_input" value="">
+            </form>
           </div>
         </div>
       </div>  
