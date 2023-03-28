@@ -10,9 +10,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script>
           $(function(){
-            $(".dropdown-menu").on('click', 'a', function(){
+            $(".dropdown-menu").on('click', 'button', function(){
               $("#dropdownMenuButton").text($(this).text());
               $("#dropdownMenuButton").val($(this).text());
+              $('#analysis_type').val($(this).text());
             });
           });
         </script>
@@ -27,7 +28,7 @@
               <a class="nav-link" href="tasks">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="analysis">Stats</a>
+              <a class="nav-link" href="analysis">Analysis</a>
             </li>
           </ul>
           <span class="navbar-text">
@@ -41,17 +42,56 @@
           <i class="fa fa-arrow-circle-right"></i> Logout
         </a>
       </nav> 
-      <div style="text-align: center; margin-top: 2em;" class="dropdown">
+      <div style="text-align: center; margin-top: 1em; margin-bottom: 1em;" class="dropdown">
         <button class="btn button-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Select A Statistic Option To Display
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Tasks Completed After The Deadline</a>
-          <a class="dropdown-item" href="#">Average Task Completion</a>
-          <a class="dropdown-item" href="#">Number Of Tasks Completed For Each Task Type</a>
-          <a class="dropdown-item" href="#">Uncompleted Tasks Sorted By Deadline</a>
-          <a class="dropdown-item" href="#">Most Time Consuming Two Tasks</a>
+          <form action="{{ url_for('analysis') }}" method="get">
+            <button class="dropdown-item" type="submit">Tasks Completed After The Deadline</button>
+            <button class="dropdown-item" type="submit">Average Task Completion</button>
+            <button class="dropdown-item" type="submit">Number Of Tasks Completed For Each Task Type</button>
+            <button class="dropdown-item" type="submit">Uncompleted Tasks Sorted By Deadline</button>
+            <button class="dropdown-item" type="submit">Most Time Consuming Two Tasks</button>
+            <input type="hidden" class="form-control" id="analysis_type" name="analysis_type" value="">
+          </form>
         </div>
       </div>
+      <div class="table-responsive">
+        <table class="table table-dark table-hover table-striped" id="nonCompletedTaskTable">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Title</th>
+              <th style="width: 50%;">Deadline</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in nonCompletedTasks %}
+              <tr>
+                <td>{{ row.title }}</td>
+                <td>{{ row.deadline}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>  
+      <div class="table-responsive">
+        <table class="table table-dark table-hover table-striped" id="mostTimeTaskTable">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Title</th>
+              <th style="width: 50%;">Completion Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in nonCompletedTasks %}
+              <tr>
+                <td>{{ row.title }}</td>
+                <td>{{ row.deadline}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div> 
     </body>
 </html>

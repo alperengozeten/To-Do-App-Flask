@@ -123,7 +123,13 @@ def tasks():
 def analysis():
     if not session['loggedin']:
         return redirect(url_for('login'))
-    return render_template('analysis.html')
+    
+    userid = session['userid']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Todo\' ORDER BY deadline', (userid, ))
+    nonCompletedTasks = cursor.fetchall()
+    
+    return render_template('analysis.html', nonCompletedTasks=nonCompletedTasks)
 
 @app.route("/logout")
 def logout():
