@@ -104,10 +104,13 @@ def tasks():
         cursor.execute('UPDATE Task SET title = % s, description = % s, deadline = % s, task_type = % s WHERE id = % s', (title, description, deadline, type, taskid, ))
         mysql.connection.commit()
     
-    cursor.execute('SELECT * FROM Task WHERE user_id = % s', (userid, ))
+    cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Todo\' ORDER BY deadline', (userid, ))
     result = cursor.fetchall()
 
-    return render_template('tasks.html', table=result, task_types=task_types)
+    cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Done\' ORDER BY deadline', (userid, ))
+    completedTasks = cursor.fetchall()
+
+    return render_template('tasks.html', table=result, task_types=task_types, completedTasks=completedTasks)
 
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():
