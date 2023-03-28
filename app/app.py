@@ -73,6 +73,7 @@ def tasks():
     result = None
     userid = session['userid']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    message = ''
 
     cursor.execute('SELECT * FROM TaskType')
     task_types = cursor.fetchall()
@@ -92,8 +93,11 @@ def tasks():
         description = request.form['create_task_description']
         type = request.form['task_type_input']
         deadline = request.form['create_deadline_date']
-        cursor.execute('INSERT INTO Task(title, description, status, deadline, creation_time, done_time, user_id, task_type) VALUES (% s, % s, \'Todo\', % s, % s, NULL, % s, % s)', (title, description, deadline, datetime.now(), userid, type, ))
-        mysql.connection.commit()
+        if not title or not description or not type or not deadline:
+            message = 'Please fill in all the required details!'
+        else:
+            cursor.execute('INSERT INTO Task(title, description, status, deadline, creation_time, done_time, user_id, task_type) VALUES (% s, % s, \'Todo\', % s, % s, NULL, % s, % s)', (title, description, deadline, datetime.now(), userid, type, ))
+            mysql.connection.commit()
     
     if request.method == 'POST' and 'edit_task_title' in request.form:
         taskid = int(request.form['edit_task_id'])
@@ -110,7 +114,7 @@ def tasks():
     cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Done\' ORDER BY deadline', (userid, ))
     completedTasks = cursor.fetchall()
 
-    return render_template('tasks.html', table=result, task_types=task_types, completedTasks=completedTasks)
+    return render_template('tasks.html', table=result, task_types=task_types, completedTasks=completedTasks, message=message)
 
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():

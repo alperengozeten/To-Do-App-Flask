@@ -69,6 +69,13 @@
               $("#edit_type_input").val($(this).text())
             });
           });
+
+          $(document).ready(function() {
+            // show the alert
+            setTimeout(function() {
+                $(".alert").alert('close');
+            }, 2000);
+          });
       </script>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="tasks">To-Do App</a>
@@ -105,6 +112,9 @@
           <div style="text-align: center;" class="col">
             <button style="margin-top: 0.5em; margin-bottom: 0.5em;" type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create A New Task</button>
           </div>
+          {% if message is defined and message %}
+            <div style="margin-top: 0.5em;" class="alert alert-warning" id="empty-alert">{{ message }}</div>
+          {% endif %}
         </div>
       </div>
       <div class="table-responsive">
