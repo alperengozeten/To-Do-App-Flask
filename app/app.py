@@ -136,7 +136,8 @@ def analysis():
         #if request.form['analysis_type'] == "Average Task Completion":
             #cursor.execute('WITH Completions AS (SELECT user_id as user_id, TIMEDIFF(done_time, creation_time) AS duration FROM Task) SELECT AVG(C.duration) FROM Completion C WHERE C.user_id = % s GROUP BY C.user_id', (userid, ))
         if request.form['analysis_type'] == "Tasks Completed After The Deadline":
-            cursor.execute('SELECT title, TIMEDIFF(done_time, creation_time) as diff FROM Task WHERE user_id = % s AND done_time > creation_time', (userid, ))
+            cursor.execute('SELECT title, HOUR(TIMEDIFF(done_time, deadline)) DIV 24 as day, HOUR(TIMEDIFF(done_time, deadline)) MOD 24 as hour_diff, MINUTE(TIMEDIFF(done_time, deadline)) as minute_diff FROM Task WHERE user_id = % s AND done_time > deadline', (userid, ))
+            #cursor.execute('WITH difference_in_seconds AS (SELECT title, TIMESTAMPDIFF(SECOND, creation_time, done_time) AS seconds FROM Task WHERE user_id = % s), differences AS (SELECT title, MOD(seconds, 60) AS seconds_part, MOD(seconds, 3600) AS minutes_part, MOD(seconds, 3600 * 24) AS hours_part FROM difference_in_seconds) SELECT title, CONCAT(FLOOR(seconds / 3600 / 24), \' days \', FLOOR(hours_part / 3600), \' hours \', FLOOR(minutes_part / 60), \' minutes \', seconds_part, \' seconds\') AS difference FROM differences;', (userid, ))
             lateTasks = cursor.fetchall()
 
         if request.form['analysis_type'] == "Uncompleted Tasks Sorted By Deadline":

@@ -116,7 +116,7 @@
             {% for row in lateTasks %}
               <tr>
                 <td>{{ row.title }}</td>
-                <td>{{ row.diff}}</td>
+                <td>{% if row.day > 0 %}{{ row.day}} days{% else %}{% endif %} {% if row.hour_diff > 0 %}{{ row.hour_diff}} hours{% else %}{% endif %} {{ row.minute_diff}} minutes</td>
               </tr>
             {% endfor %}
           </tbody>
