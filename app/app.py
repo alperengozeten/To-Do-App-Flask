@@ -124,17 +124,31 @@ def analysis():
     if not session['loggedin']:
         return redirect(url_for('login'))
     
+    lateTasks = None
     nonCompletedTasks = None
-    userid = session['userid']
+    mostTimeTasks = None
+    userid = int(session['userid'])
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    analysisType = None
 
     if request.method == 'POST' and 'analysis_type' in request.form:
+        analysisType = request.form['analysis_type']
+        #if request.form['analysis_type'] == "Average Task Completion":
+            #cursor.execute('WITH Completions AS (SELECT user_id as user_id, TIMEDIFF(done_time, creation_time) AS duration FROM Task) SELECT AVG(C.duration) FROM Completion C WHERE C.user_id = % s GROUP BY C.user_id', (userid, ))
+        if request.form['analysis_type'] == "Tasks Completed After The Deadline":
+            cursor.execute('SELECT title, TIMEDIFF(done_time, creation_time) as diff FROM Task WHERE user_id = % s AND done_time > creation_time', (userid, ))
+            lateTasks = cursor.fetchall()
+
         if request.form['analysis_type'] == "Uncompleted Tasks Sorted By Deadline":
             cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Todo\' ORDER BY deadline', (userid, ))
             nonCompletedTasks = cursor.fetchall()
-            print(nonCompletedTasks)
+
+
+        if request.form['analysis_type'] == "Most Time Consuming Two Tasks":
+            cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Todo\' ORDER BY deadline', (userid, ))
+            nonCompletedTasks = cursor.fetchall()
     
-    return render_template('analysis.html', nonCompletedTasks=nonCompletedTasks)
+    return render_template('analysis.html', analysisType=analysisType, lateTasks=lateTasks, nonCompletedTasks=nonCompletedTasks)
 
 @app.route("/logout")
 def logout():
