@@ -147,7 +147,7 @@
 
       {% if averageTime is not none %}
         {% for row in averageTime %}
-        <h2 style="text-align:center; color: aliceblue;">Your Average Task Completion Time: {% if row.avg_day > 0 %}{{ row.avg_day}} days{% else %}{% endif %} {% if row.avg_hour > 0 %}{{ row.avg_hour}} hours{% else %}{% endif %} {{ row.avg_minute}} minutes</h2>
+        <h2 style="text-align:center; color: aliceblue;">Your Average Task Completion Time: {% if row.avg_day is not none and row.avg_day > 0 %}{{ row.avg_day}} days{% else %}{% endif %} {% if row.avg_hour is not none and row.avg_hour > 0 %}{{ row.avg_hour}} hours{% else %}{% endif %} {% if row.avg_minute is not none %}{{ row.avg_minute}} minutes{% else %}You have no completed tasks!{% endif %}</h2>
         {% endfor %}
       {% endif %}
     </body>
