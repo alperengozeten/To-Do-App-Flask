@@ -137,7 +137,7 @@
             {% for row in mostTimeTasks %}
               <tr>
                 <td>{{ row.title }}</td>
-                <td>{{ row.task_time}}</td>
+                <td>{% if row.task_time_day > 0 %}{{ row.task_time_day}} days{% else %}{% endif %} {% if row.task_time_hour > 0 %}{{ row.task_time_hour}} hours{% else %}{% endif %} {{ row.task_time_minute}} minutes</td>
               </tr>
             {% endfor %}
           </tbody>

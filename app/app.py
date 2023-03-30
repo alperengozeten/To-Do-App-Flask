@@ -22,6 +22,11 @@ mysql = MySQL(app)
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     message = ''
+
+    if 'invalidaccess' in session and session['invalidaccess']:
+        session['invalidaccess'] = False
+        message = 'Please first login!'
+
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
@@ -69,6 +74,7 @@ def register():
 @app.route('/tasks', methods =['GET', 'POST'])
 def tasks():
     if not session['loggedin']:
+        session['invalidaccess'] = True
         return redirect(url_for('login'))
     result = None
     userid = session['userid']
@@ -122,6 +128,7 @@ def tasks():
 @app.route('/analysis', methods =['GET', 'POST'])
 def analysis():
     if not session['loggedin']:
+        session['invalidaccess'] = True
         return redirect(url_for('login'))
     
     averageTime = None
@@ -149,7 +156,7 @@ def analysis():
 
 
         if request.form['analysis_type'] == "Most Time Consuming Two Tasks":
-            cursor.execute('SELECT title, TIMEDIFF(done_time, creation_time) as task_time FROM Task WHERE user_id = % s ORDER BY task_time DESC LIMIT 2', (userid, ))
+            cursor.execute('SELECT title, HOUR(task_time) DIV 24 as task_time_day, HOUR(task_time) MOD 24 as task_time_hour, MINUTE(task_time) as task_time_minute FROM (SELECT title, TIMEDIFF(done_time, creation_time) as task_time FROM Task WHERE user_id = % s ORDER BY task_time DESC LIMIT 2) as T', (userid, ))
             mostTimeTasks = cursor.fetchall()
         
         if request.form['analysis_type'] == "Number Of Tasks Completed For Each Task Type":
