@@ -124,6 +124,27 @@
       </div>  
       {% endif %}
 
+      {% if mostTimeTasks is not none %}
+      <div class="table-responsive">
+        <table class="table table-dark table-hover table-striped" id="nonCompletedTaskTable">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Title</th>
+              <th style="width: 50%;">Completion Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in mostTimeTasks %}
+              <tr>
+                <td>{{ row.title }}</td>
+                <td>{{ row.task_time}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>  
+      {% endif %}
+
       {% if averageTime is not none %}
         {% for row in averageTime %}
         <h2 style="text-align:center; color: aliceblue;">Your Average Task Completion Time: {% if row.avg_day > 0 %}{{ row.avg_day}} days{% else %}{% endif %} {% if row.avg_hour > 0 %}{{ row.avg_hour}} hours{% else %}{% endif %} {{ row.avg_minute}} minutes</h2>

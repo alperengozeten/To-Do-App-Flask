@@ -149,14 +149,14 @@ def analysis():
 
 
         if request.form['analysis_type'] == "Most Time Consuming Two Tasks":
-            cursor.execute('SELECT * FROM Task WHERE user_id = % s AND status = \'Todo\' ORDER BY deadline', (userid, ))
-            nonCompletedTasks = cursor.fetchall()
+            cursor.execute('SELECT title, TIMEDIFF(done_time, creation_time) as task_time FROM Task WHERE user_id = % s ORDER BY task_time DESC LIMIT 2', (userid, ))
+            mostTimeTasks = cursor.fetchall()
         
         if request.form['analysis_type'] == "Number Of Tasks Completed For Each Task Type":
             cursor.execute('SELECT Y.type as type, COUNT(*) as task_count FROM Task T, TaskType Y WHERE T.user_id = % s AND status = \'Done\' AND T.task_type = Y.type GROUP BY Y.type', (userid, ))
             typeTaskCounts = cursor.fetchall()
     
-    return render_template('analysis.html', analysisType=analysisType, lateTasks=lateTasks, nonCompletedTasks=nonCompletedTasks, typeTaskCounts=typeTaskCounts, averageTime=averageTime)
+    return render_template('analysis.html', analysisType=analysisType, lateTasks=lateTasks, nonCompletedTasks=nonCompletedTasks, typeTaskCounts=typeTaskCounts, averageTime=averageTime, mostTimeTasks=mostTimeTasks)
 
 @app.route("/logout")
 def logout():
